@@ -7,7 +7,8 @@
 
 import Foundation
 
-public protocol Request {
+// MARK: - Request
+protocol Request {
     var route: String { get }
     var method: HTTPMethod { get }
     var headers: [String: String] { get }
@@ -17,7 +18,7 @@ public protocol Request {
     associatedtype ResponseType: Decodable
 }
 
-public extension Request {
+extension Request {
     var method: HTTPMethod { .GET }
     var headers: [String: String] {
         [
@@ -29,13 +30,13 @@ public extension Request {
 }
 
 // MARK: - HTTPMethod
-public enum HTTPMethod: String {
+enum HTTPMethod: String {
     case GET = "GET"
     case POST = "POST"
 }
 
 // MARK: - BodyType
-public enum BodyType {
+enum BodyType {
     case encodable(Encodable)
     case empty
 }
