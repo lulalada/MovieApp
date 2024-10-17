@@ -36,6 +36,13 @@
 		B17C4B182CC19F60002D30EE /* TrendingMoviesContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17C4B172CC19F60002D30EE /* TrendingMoviesContainer.swift */; };
 		B17C4B1A2CC1A023002D30EE /* Injection.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17C4B192CC1A023002D30EE /* Injection.swift */; };
 		B17C4B1C2CC1A251002D30EE /* TrendingMoviesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17C4B1B2CC1A251002D30EE /* TrendingMoviesUseCase.swift */; };
+		B17C4B1F2CC1AF0F002D30EE /* MovieByIDDomainToDTOMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17C4B1E2CC1AF0F002D30EE /* MovieByIDDomainToDTOMapper.swift */; };
+		B17C4B212CC1AF4C002D30EE /* MovieByIDDTOToDomainMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17C4B202CC1AF4C002D30EE /* MovieByIDDTOToDomainMapper.swift */; };
+		B17C4B242CC1AFF7002D30EE /* MovieByIDDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17C4B232CC1AFF7002D30EE /* MovieByIDDataSource.swift */; };
+		B17C4B272CC1B070002D30EE /* MovieByIDContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17C4B262CC1B070002D30EE /* MovieByIDContainer.swift */; };
+		B17C4B2B2CC1B595002D30EE /* MovieByIDRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17C4B2A2CC1B595002D30EE /* MovieByIDRepository.swift */; };
+		B17C4B2E2CC1B5DB002D30EE /* DefaultMovieByIDRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17C4B2D2CC1B5DB002D30EE /* DefaultMovieByIDRepository.swift */; };
+		B17C4B312CC1B686002D30EE /* MovieByIDUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = B17C4B302CC1B686002D30EE /* MovieByIDUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +75,13 @@
 		B17C4B172CC19F60002D30EE /* TrendingMoviesContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingMoviesContainer.swift; sourceTree = "<group>"; };
 		B17C4B192CC1A023002D30EE /* Injection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Injection.swift; sourceTree = "<group>"; };
 		B17C4B1B2CC1A251002D30EE /* TrendingMoviesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendingMoviesUseCase.swift; sourceTree = "<group>"; };
+		B17C4B1E2CC1AF0F002D30EE /* MovieByIDDomainToDTOMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieByIDDomainToDTOMapper.swift; sourceTree = "<group>"; };
+		B17C4B202CC1AF4C002D30EE /* MovieByIDDTOToDomainMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieByIDDTOToDomainMapper.swift; sourceTree = "<group>"; };
+		B17C4B232CC1AFF7002D30EE /* MovieByIDDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieByIDDataSource.swift; sourceTree = "<group>"; };
+		B17C4B262CC1B070002D30EE /* MovieByIDContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieByIDContainer.swift; sourceTree = "<group>"; };
+		B17C4B2A2CC1B595002D30EE /* MovieByIDRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieByIDRepository.swift; sourceTree = "<group>"; };
+		B17C4B2D2CC1B5DB002D30EE /* DefaultMovieByIDRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultMovieByIDRepository.swift; sourceTree = "<group>"; };
+		B17C4B302CC1B686002D30EE /* MovieByIDUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieByIDUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -170,6 +184,9 @@
 		B17C4AEF2CC18D9B002D30EE /* MovieByID */ = {
 			isa = PBXGroup;
 			children = (
+				B17C4B2C2CC1B5C5002D30EE /* Repository */,
+				B17C4B222CC1AFE1002D30EE /* DataSource */,
+				B17C4B1D2CC1AEF4002D30EE /* Mapper */,
 				B17C4AF02CC18DB9002D30EE /* DTO */,
 			);
 			path = MovieByID;
@@ -190,6 +207,7 @@
 		B17C4AFB2CC194C9002D30EE /* Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				B17C4B252CC1B04F002D30EE /* MovieByID */,
 				B17C4AFC2CC194EE002D30EE /* TrendingMovies */,
 			);
 			path = Presentation;
@@ -232,6 +250,7 @@
 		B17C4B022CC197D3002D30EE /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				B17C4B282CC1B577002D30EE /* MovieByID */,
 				B17C4B082CC198A6002D30EE /* TrendingMovies */,
 			);
 			path = Domain;
@@ -276,6 +295,64 @@
 				B17C4B192CC1A023002D30EE /* Injection.swift */,
 			);
 			path = DI;
+			sourceTree = "<group>";
+		};
+		B17C4B1D2CC1AEF4002D30EE /* Mapper */ = {
+			isa = PBXGroup;
+			children = (
+				B17C4B1E2CC1AF0F002D30EE /* MovieByIDDomainToDTOMapper.swift */,
+				B17C4B202CC1AF4C002D30EE /* MovieByIDDTOToDomainMapper.swift */,
+			);
+			path = Mapper;
+			sourceTree = "<group>";
+		};
+		B17C4B222CC1AFE1002D30EE /* DataSource */ = {
+			isa = PBXGroup;
+			children = (
+				B17C4B232CC1AFF7002D30EE /* MovieByIDDataSource.swift */,
+			);
+			path = DataSource;
+			sourceTree = "<group>";
+		};
+		B17C4B252CC1B04F002D30EE /* MovieByID */ = {
+			isa = PBXGroup;
+			children = (
+				B17C4B262CC1B070002D30EE /* MovieByIDContainer.swift */,
+			);
+			path = MovieByID;
+			sourceTree = "<group>";
+		};
+		B17C4B282CC1B577002D30EE /* MovieByID */ = {
+			isa = PBXGroup;
+			children = (
+				B17C4B2F2CC1B675002D30EE /* UseCase */,
+				B17C4B292CC1B582002D30EE /* Repository */,
+			);
+			path = MovieByID;
+			sourceTree = "<group>";
+		};
+		B17C4B292CC1B582002D30EE /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				B17C4B2A2CC1B595002D30EE /* MovieByIDRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		B17C4B2C2CC1B5C5002D30EE /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				B17C4B2D2CC1B5DB002D30EE /* DefaultMovieByIDRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		B17C4B2F2CC1B675002D30EE /* UseCase */ = {
+			isa = PBXGroup;
+			children = (
+				B17C4B302CC1B686002D30EE /* MovieByIDUseCase.swift */,
+			);
+			path = UseCase;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -358,11 +435,14 @@
 			files = (
 				B17C4AF22CC18E04002D30EE /* MovieByIDRequest.swift in Sources */,
 				B17C4B132CC19D41002D30EE /* TrendingMoviesRepository.swift in Sources */,
+				B17C4B312CC1B686002D30EE /* MovieByIDUseCase.swift in Sources */,
 				B17C4AED2CC1820F002D30EE /* TrendingMoviesResponseDTO.swift in Sources */,
 				B17C4AFE2CC19526002D30EE /* TrendingMoviesViewController.swift in Sources */,
 				B17C4AE92CC180CA002D30EE /* GetTrendingMoviesRequest.swift in Sources */,
 				B17C4B0A2CC198DC002D30EE /* TrendingMoviesDataSource.swift in Sources */,
+				B17C4B272CC1B070002D30EE /* MovieByIDContainer.swift in Sources */,
 				B17C4B1C2CC1A251002D30EE /* TrendingMoviesUseCase.swift in Sources */,
+				B17C4B242CC1AFF7002D30EE /* MovieByIDDataSource.swift in Sources */,
 				B17C4ADE2CC17736002D30EE /* NetworkManager.swift in Sources */,
 				B17C4AF42CC18E47002D30EE /* MovieByIDRequestDTO.swift in Sources */,
 				B17C4AE52CC1800B002D30EE /* TrendingMoviesRequest.swift in Sources */,
@@ -370,10 +450,14 @@
 				B17C4AC72CC153B7002D30EE /* ViewController.swift in Sources */,
 				B17C4AE72CC1807E002D30EE /* TrendingMoviesRequestDTO.swift in Sources */,
 				B17C4AF62CC18E89002D30EE /* Movie.swift in Sources */,
+				B17C4B212CC1AF4C002D30EE /* MovieByIDDTOToDomainMapper.swift in Sources */,
 				B17C4AE02CC179B9002D30EE /* Request.swift in Sources */,
+				B17C4B2B2CC1B595002D30EE /* MovieByIDRepository.swift in Sources */,
 				B17C4AC32CC153B7002D30EE /* AppDelegate.swift in Sources */,
+				B17C4B2E2CC1B5DB002D30EE /* DefaultMovieByIDRepository.swift in Sources */,
 				B17C4B112CC19BA6002D30EE /* TrendingMoviesDTOToDomainMapper.swift in Sources */,
 				B17C4B152CC19E3D002D30EE /* DefaultTrendingMoviesRepository.swift in Sources */,
+				B17C4B1F2CC1AF0F002D30EE /* MovieByIDDomainToDTOMapper.swift in Sources */,
 				B17C4AF82CC18FD6002D30EE /* MovieByIDResponseDTO.swift in Sources */,
 				B17C4AC52CC153B7002D30EE /* SceneDelegate.swift in Sources */,
 				B17C4B0D2CC19A16002D30EE /* NetworkInjection.swift in Sources */,

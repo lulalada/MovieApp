@@ -10,5 +10,6 @@ import Factory
 // MARK: - Injection
 extension Container {
     var trendingMoviesContainer: TrendingMoviesContainer { .shared }
+    var movieByIDContainer: MovieByIDContainer { .shared }
 }
 

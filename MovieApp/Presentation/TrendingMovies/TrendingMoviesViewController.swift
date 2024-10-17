@@ -14,6 +14,9 @@ class TrendingMoviesViewController: UIViewController {
     @LazyInjected(\.trendingMoviesContainer.trendingMoviesUseCase)
     var trendingMoviesUseCase: TrendingMoviesUseCase
     
+    @LazyInjected(\.movieByIDContainer.movieByIDUseCase)
+    var movieByIDUseCase: MovieByIDUseCase
+    
     private(set) var subscriptions: Set<AnyCancellable> = []
     
     // MARK: Outlets
@@ -49,6 +52,7 @@ class TrendingMoviesViewController: UIViewController {
                 print(response, "response frpm vc")
             }
             .store(in: &subscriptions)
+
     }
 
 }
