@@ -30,9 +30,6 @@ final class DefaultTrendingMoviesViewModel: TrendingMoviesViewModel {
     @LazyInjected(\.trendingMoviesContainer.trendingMoviesUseCase)
     var trendingMoviesUseCase: TrendingMoviesUseCase
     
-    @LazyInjected(\.movieByIDContainer.movieByIDUseCase)
-    var movieByIDUseCase: MovieByIDUseCase
-    
     // MARK: Publisher
     var moviesPublisher: AnyPublisher<[BasicMovie], Never> {
         moviesSubject.eraseToAnyPublisher()

@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let window = UIWindow(windowScene: windowScene)
         self.window = window
-        window.rootViewController = TrendingMoviesViewController()
+        window.rootViewController = UINavigationController(rootViewController: TrendingMoviesViewController())
         window.makeKeyAndVisible()
     }
 

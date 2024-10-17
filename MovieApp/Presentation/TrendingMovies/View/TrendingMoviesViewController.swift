@@ -37,27 +37,28 @@ final class TrendingMoviesViewController: UIViewController {
         setupUI()
         bind()
         getMovies()
-        // Do any additional setup after loading the view.
     }
     
     private func getMovies() {
         viewModel.getTrendingMovies()
     }
+}
 
-    private func bind() {
+// MARK: - Binding
+private extension TrendingMoviesViewController {
+    func bind() {
         viewModel.moviesPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] movies in
                 guard let self = self else { return }
                 self.trendingMovies = movies
-                print(movies, "mmovies from publisher")
                 self.tableView.reloadData()
             }
             .store(in: &subscriptions)
     }
 }
 
-// MARK: - Private methods
+// MARK: - UI setups
 private extension TrendingMoviesViewController {
     func setupTableView() {
         tableView.delegate = self
@@ -72,13 +73,8 @@ private extension TrendingMoviesViewController {
     }
 }
 
-// MARK: - UITableViewDelegate
-extension TrendingMoviesViewController: UITableViewDelegate {
-    
-}
-
-// MARK: - UITableViewDelegate
-extension TrendingMoviesViewController: UITableViewDataSource {
+// MARK: - UITableViewDataSource, UITableViewDelegate
+extension TrendingMoviesViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         trendingMovies.count
     }
@@ -87,5 +83,12 @@ extension TrendingMoviesViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = trendingMovies[indexPath.row].title
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let movieId = trendingMovies[indexPath.row].imdbID
+        let viewModel = DefaultMovieDetailsViewModel(movieId: movieId)
+        let detailsVc = MovieDetailsViewController(viewModel: viewModel)
+        navigationController?.pushViewController(detailsVc, animated: true)
     }
 }

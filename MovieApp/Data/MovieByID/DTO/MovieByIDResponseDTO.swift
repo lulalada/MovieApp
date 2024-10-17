@@ -6,21 +6,19 @@
 //
 
 // MARK: - MovieByIDResponseDTO
-import Foundation
-
 struct MovieByIDResponseDTO: Decodable {
     let title: String
     let description: String
-    let tagline: String
-    let year: String
-    let releaseDate: String
+    let tagline: String?
+    let year: String?
+    let releaseDate: String?
     let imdbID: String
-    let imdbRating: String
-    let voteCount: String
-    let popularity: String
-    let rated: String
-    let genres: [String]
-    let stars: [String]
+    let imdbRating: String?
+    let voteCount: String?
+    let popularity: String?
+    let rated: String?
+    let genres: [String]?
+    let stars: [String]?
 
     enum CodingKeys: String, CodingKey {
         case title

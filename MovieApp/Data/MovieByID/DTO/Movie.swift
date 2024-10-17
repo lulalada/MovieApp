@@ -10,13 +10,11 @@ struct Movie {
     let imdbID: String
     let title: String
     let description: String
-    let tagline: String
-    let year: String
-    let releaseDate: String
-    let rating: String
-    let voteCount: String
-    let popularity: String
-    let rated: String
-    let genres: [String]
-    let stars: [String]
+    let tagline: String?
+    let year: String?
+    let releaseDate: String?
+    let rating: String?
+    let voteCount: String?
+    let popularity: String?
+    let rated: String?
 }

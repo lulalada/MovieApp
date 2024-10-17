@@ -13,7 +13,6 @@ struct GetTrendingMoviesRequest: Request {
     typealias ResponseType = TrendingMoviesResponseDTO
     
     // MARK: Properties
-    let route: String = Consts.route
     let method: HTTPMethod = .GET
     let body: BodyType = .empty
     let query: [String: String]
@@ -21,12 +20,5 @@ struct GetTrendingMoviesRequest: Request {
     // MARK: Initializer
     init(requestDTO: TrendingMoviesRequestDTO) {
         self.query = ["page": "\(requestDTO.page)"]
-    }
-}
-
-// MARK: - Consts
-private extension GetTrendingMoviesRequest {
-    enum Consts {
-        static let route = "https://movies-tv-shows-database.p.rapidapi.com/"
     }
 }

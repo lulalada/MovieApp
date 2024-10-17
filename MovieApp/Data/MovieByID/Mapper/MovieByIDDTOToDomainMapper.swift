@@ -18,9 +18,7 @@ final class MovieByIDDTOToDomainMapper {
             rating: model.imdbRating,
             voteCount: model.voteCount,
             popularity: model.popularity,
-            rated: model.rated,
-            genres: model.genres,
-            stars: model.stars
+            rated: model.rated
         )
     }
 }

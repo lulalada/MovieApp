@@ -11,7 +11,6 @@ struct GetMovieByIDRequest: Request {
     typealias ResponseType = MovieByIDResponseDTO
     
     // MARK: Properties
-    let route: String = Consts.route
     let method: HTTPMethod = .GET
     let body: BodyType = .empty
     let query: [String: String]
@@ -19,12 +18,5 @@ struct GetMovieByIDRequest: Request {
     // MARK: Initializer
     init(requestDTO: MovieByIDRequestDTO) {
         self.query = ["movieid": "\(requestDTO.movieid)"]
-    }
-}
-
-// MARK: - Consts
-private extension GetMovieByIDRequest {
-    enum Consts {
-        static let route = "https://movies-tv-shows-database.p.rapidapi.com/"
     }
 }
