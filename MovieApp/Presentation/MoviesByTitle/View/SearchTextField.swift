@@ -22,7 +22,6 @@ final class SearchTextField: UIView {
     private lazy var textField: UITextField = {
         let field = UITextField()
         field.placeholder = Consts.Strings.placeholder
-        field.clearButtonMode = .whileEditing
         field.returnKeyType = .search
         field.backgroundColor = .white
         field.font = UIFont.systemFont(ofSize: 16)

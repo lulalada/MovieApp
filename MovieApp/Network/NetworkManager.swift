@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import SwiftyJSON
 
 // MARK: - NetworkError
 enum NetworkError: Error {
@@ -42,8 +41,7 @@ class NetworkManager: NetworkManagerProtocol {
                     promise(.failure(.requestFailed))
                     return
                 }
-                let json = JSON(data)
-                print(json)
+                
                 guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode),
                       let data = data else {
                     promise(.failure(.invalidResponse))
