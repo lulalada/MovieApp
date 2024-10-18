@@ -84,7 +84,7 @@ extension DefaultTrendingMoviesViewModel {
                 }
             } receiveValue: { [weak self] response in
                 guard let self else { return }
-                self.moviesSubject.send(response.movies)
+                self.moviesSubject.send(response.movies ?? [])
             }
             .store(in: &subscriptions)
     }

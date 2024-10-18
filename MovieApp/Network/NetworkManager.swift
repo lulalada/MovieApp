@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftyJSON
 
 // MARK: - NetworkError
 enum NetworkError: Error {
@@ -34,7 +35,6 @@ class NetworkManager: NetworkManagerProtocol {
         var request = URLRequest(url: url)
         request.httpMethod = service.method.rawValue
         request.allHTTPHeaderFields = service.headers
-        print(service.headers)
         
         return Future<T.ResponseType, NetworkError> { promise in
             URLSession.shared.dataTask(with: request) { data, response, error in
@@ -42,7 +42,8 @@ class NetworkManager: NetworkManagerProtocol {
                     promise(.failure(.requestFailed))
                     return
                 }
-                
+                let json = JSON(data)
+                print(json)
                 guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode),
                       let data = data else {
                     promise(.failure(.invalidResponse))

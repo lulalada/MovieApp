@@ -7,7 +7,7 @@
 
 // MARK: - MoviesByTitleResponseDTO
 struct MoviesByTitleResponseDTO: Decodable {
-    let movieResults: [BasicMovieDTO]
+    let movieResults: [BasicMovieDTO]?
 
     enum CodingKeys: String, CodingKey {
         case movieResults = "movie_results"

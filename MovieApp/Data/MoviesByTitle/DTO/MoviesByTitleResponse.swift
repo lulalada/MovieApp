@@ -7,5 +7,5 @@
 
 // MARK: - MoviesByTitleResponse
 struct MoviesByTitleResponse {
-    let movies: [BasicMovie]
+    let movies: [BasicMovie]?
 }

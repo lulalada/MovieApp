@@ -19,13 +19,29 @@ final class TrendingMoviesViewController: UIViewController {
     private var subscriptions: Set<AnyCancellable> = []
     
     // MARK: Outlets
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.numberOfLines = 0
+        return label
+    }()
+    
     private lazy var searchField = SearchTextField()
+    
+    private lazy var vStackView: UIStackView = {
+        let stackView = UIStackView(
+            arrangedSubviews: [titleLabel, searchField])
+        stackView.axis = .vertical
+        stackView.spacing = Consts.Layouts.spacing
+        stackView.distribution = .fill
+        return stackView
+    }()
     
     private lazy var tableView: UITableView = {
         let view = UITableView()
         view.backgroundColor = .clear
         view.separatorStyle = .none
-        view.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        view.register(MovieTableViewCell.self, forCellReuseIdentifier: MovieTableViewCell.identifier)
         return view
     }()
     
@@ -62,6 +78,8 @@ private extension TrendingMoviesViewController {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] movies in
                 guard let self else { return }
+                
+                titleLabel.text = movies.isEmpty ? Consts.Strings.noResultsTitle : Consts.Strings.title
                 trendingMovies = movies
                 tableView.reloadData()
             }
@@ -86,18 +104,21 @@ private extension TrendingMoviesViewController {
     }
     
     func setupUI() {
-        view.addSubview(searchField)
+        view.addSubview(vStackView)
         view.addSubview(tableView)
         
-        searchField.snp.makeConstraints { make in
+        vStackView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.leading.trailing.equalToSuperview()
-            make.height.equalTo(50)
+            make.leading.trailing.equalToSuperview().inset(Consts.Layouts.horizontalInsent)
         }
         
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(searchField.snp.bottom)
+            make.top.equalTo(vStackView.snp.bottom).offset(Consts.Layouts.horizontalInsent)
             make.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        searchField.snp.makeConstraints { make in
+            make.height.equalTo(Consts.Layouts.searchFieldHeight)
         }
     }
 }
@@ -109,13 +130,29 @@ extension TrendingMoviesViewController: UITableViewDataSource, UITableViewDelega
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        cell.textLabel?.text = trendingMovies[indexPath.row].title
+        let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.identifier, for: indexPath) as! MovieTableViewCell
+        cell.setContent(title: trendingMovies[indexPath.row].title, year: trendingMovies[indexPath.row].year)
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         viewModel.showMovieDetails(by: trendingMovies[indexPath.row].imdbID)
+    }
+}
+
+// MARK: - Consts
+private extension TrendingMoviesViewController {
+    enum Consts {
+        enum Strings {
+            static let title = "Trending Movies"
+            static let noResultsTitle = "No Results 😔"
+        }
+        
+        enum Layouts {
+            static let horizontalInsent: CGFloat = 20
+            static let searchFieldHeight: CGFloat = 50
+            static let spacing: CGFloat = 20
+        }
     }
 }
