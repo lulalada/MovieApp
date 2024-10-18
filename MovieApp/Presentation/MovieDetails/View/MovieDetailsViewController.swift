@@ -11,8 +11,7 @@ import Factory
 import SDWebImage
 
 final class MovieDetailsViewController: UIViewController {
-    @LazyInjected(\.movieDetailsContainer.movieImageUseCase)
-    var movieImageUseCase: MovieImageUseCase
+    
     // MARK: Properties
     private let viewModel: any MovieDetailsViewModel
     private var subscriptions: Set<AnyCancellable> = []
@@ -77,22 +76,6 @@ private extension MovieDetailsViewController {
                 descriptionText.text = movie.description
             }
             .store(in: &subscriptions)
-        
-//        movieImageUseCase
-//            .execute(request: .init(movieId: "tt1375666"))
-//            .receive(on: DispatchQueue.main)
-//            .sink { result in
-//                switch result {
-//                case .finished: break
-//                case .failure:
-//                    print("failure")
-//                }
-//            } receiveValue: { [weak self] response in
-//                guard let self else { return }
-//                print("POSTER URL", response.posterUrl)
-//            }
-//            .store(in: &subscriptions)
-
     }
 }
 // MARK: - UI setups

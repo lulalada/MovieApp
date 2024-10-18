@@ -13,6 +13,7 @@ import Factory
 protocol TrendingMoviesViewModelInput {
     func getTrendingMovies()
     func getMoviesByTitle(_ title: String)
+    func showMovieDetails(by id: String)
     // func loadMoreTrendingMovies()
 }
 
@@ -44,6 +45,12 @@ final class DefaultTrendingMoviesViewModel: TrendingMoviesViewModel {
     // MARK: Properties
     private var pagesCounter: Int = 2
     private(set) var subscriptions: Set<AnyCancellable> = []
+    private var coordinator: MovieCoordinator
+    
+    // MARK: Initializer
+    init(coordinator: MovieCoordinator) {
+        self.coordinator = coordinator
+    }
 }
 
 // MARK: - Input
@@ -80,5 +87,9 @@ extension DefaultTrendingMoviesViewModel {
                 self.moviesSubject.send(response.movies)
             }
             .store(in: &subscriptions)
+    }
+    
+    func showMovieDetails(by id: String) {
+        coordinator.navigateToMovieDetails(with: id)
     }
 }

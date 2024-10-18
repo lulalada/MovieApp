@@ -12,11 +12,8 @@ import SnapKit
 
 final class TrendingMoviesViewController: UIViewController {
     
-    // MARK: Injected
-    @LazyInjected(\.trendingMoviesContainer.trendingMoviesViewModel)
-    private var viewModel: TrendingMoviesViewModel
-    
     // MARK: Properties
+    private let viewModel: any TrendingMoviesViewModel
     private var trendingMovies: [BasicMovie] = []
     private var subscriptions: Set<AnyCancellable> = []
     
@@ -28,6 +25,16 @@ final class TrendingMoviesViewController: UIViewController {
         view.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return view
     }()
+    
+    // MARK: Initializer
+    init(viewModel: any TrendingMoviesViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     // MARK: Lifcycle
     override func viewDidLoad() {
@@ -82,13 +89,11 @@ extension TrendingMoviesViewController: UITableViewDataSource, UITableViewDelega
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.textLabel?.text = trendingMovies[indexPath.row].title
+        cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let movieId = trendingMovies[indexPath.row].imdbID
-        let viewModel = DefaultMovieDetailsViewModel(movieId: movieId)
-        let detailsVc = MovieDetailsViewController(viewModel: viewModel)
-        navigationController?.pushViewController(detailsVc, animated: true)
+        viewModel.showMovieDetails(by: trendingMovies[indexPath.row].imdbID)
     }
 }

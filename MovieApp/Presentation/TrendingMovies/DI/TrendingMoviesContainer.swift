@@ -25,10 +25,6 @@ final class TrendingMoviesContainer: SharedContainer {
 
 // MARK: - Services
 extension TrendingMoviesContainer {
-    var trendingMoviesViewModel: Factory<TrendingMoviesViewModel> {
-        self { DefaultTrendingMoviesViewModel() }
-    }
-    
     var trendingMoviesUseCase: Factory<TrendingMoviesUseCase> {
         self { DefaultTrendingMoviesUseCase() }
     }
