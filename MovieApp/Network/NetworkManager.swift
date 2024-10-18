@@ -7,7 +7,6 @@
 
 import Foundation
 import Combine
-import SwiftyJSON
 
 // MARK: - NetworkError
 enum NetworkError: Error {
@@ -49,9 +48,6 @@ class NetworkManager: NetworkManagerProtocol {
                     promise(.failure(.invalidResponse))
                     return
                 }
-                
-                let json = JSON(data)
-                print(json, "JSON RESPONSE BODY")
                 
                 do {
                     let decodedData = try JSONDecoder().decode(T.ResponseType.self, from: data)

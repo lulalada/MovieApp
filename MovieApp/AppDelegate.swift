@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import SwiftyJSON
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {

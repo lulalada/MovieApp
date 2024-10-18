@@ -10,6 +10,7 @@ import Factory
 import Combine
 import SnapKit
 
+// MARK: - TrendingMoviesViewController
 final class TrendingMoviesViewController: UIViewController {
     
     // MARK: Properties
@@ -18,6 +19,8 @@ final class TrendingMoviesViewController: UIViewController {
     private var subscriptions: Set<AnyCancellable> = []
     
     // MARK: Outlets
+    private lazy var searchField = SearchTextField()
+    
     private lazy var tableView: UITableView = {
         let view = UITableView()
         view.backgroundColor = .clear
@@ -25,6 +28,7 @@ final class TrendingMoviesViewController: UIViewController {
         view.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         return view
     }()
+    
     
     // MARK: Initializer
     init(viewModel: any TrendingMoviesViewModel) {
@@ -57,11 +61,20 @@ private extension TrendingMoviesViewController {
         viewModel.moviesPublisher
             .receive(on: DispatchQueue.main)
             .sink { [weak self] movies in
-                guard let self = self else { return }
-                self.trendingMovies = movies
-                self.tableView.reloadData()
+                guard let self else { return }
+                trendingMovies = movies
+                tableView.reloadData()
             }
             .store(in: &subscriptions)
+        
+        searchField.onSearch = { [weak self] searchText in
+            guard let self else { return }
+            if searchText.isEmpty {
+                viewModel.getTrendingMovies()
+            } else {
+                viewModel.getMoviesByTitle(searchText)
+            }
+        }
     }
 }
 
@@ -73,9 +86,18 @@ private extension TrendingMoviesViewController {
     }
     
     func setupUI() {
+        view.addSubview(searchField)
         view.addSubview(tableView)
+        
+        searchField.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(50)
+        }
+        
         tableView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
+            make.top.equalTo(searchField.snp.bottom)
+            make.leading.trailing.bottom.equalToSuperview()
         }
     }
 }
