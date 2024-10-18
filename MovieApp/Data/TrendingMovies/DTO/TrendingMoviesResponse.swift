@@ -10,8 +10,9 @@ struct TrendingMoviesResponse {
     let movies: [BasicMovie]
 }
 
+// MARK: - BasicMovie
 struct BasicMovie {
     let title: String
-    let year: String
+    let year: String?
     let imdbID: String
 }

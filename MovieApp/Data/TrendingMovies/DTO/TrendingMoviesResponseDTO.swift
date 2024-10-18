@@ -14,14 +14,29 @@ struct TrendingMoviesResponseDTO: Decodable {
     }
 }
 
+// MARK: - BasicMovieDTO
 struct BasicMovieDTO: Decodable {
     let title: String
-    let year: String
+    let year: String?
     let imdbID: String
 
     enum CodingKeys: String, CodingKey {
         case title
         case year
         case imdbID = "imdb_id"
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        title = try container.decode(String.self, forKey: .title)
+        imdbID = try container.decode(String.self, forKey: .imdbID)
+        
+        if let yearInt = try? container.decode(Int.self, forKey: .year) {
+            year = String(yearInt)
+        } else if let yearString = try? container.decode(String.self, forKey: .year) {
+            year = yearString
+        } else {
+            year = nil
+        }
     }
 }

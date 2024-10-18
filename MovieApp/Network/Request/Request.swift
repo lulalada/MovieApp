@@ -16,18 +16,29 @@ protocol Request {
     var query: [String: String] { get }
 
     associatedtype ResponseType: Decodable
+    
+    func additionalHeaders() -> [String: String]
 }
 
+// MARK: - Default values
 extension Request {
     var route: String { "https://movies-tv-shows-database.p.rapidapi.com/" }
     var method: HTTPMethod { .GET }
     var headers: [String: String] {
-        [
+        var defaultHeaders: [String: String] = [
             "x-rapidapi-key": "88a659b4fbmsh0114af9ee0c46d6p1dc0dajsn251a2653177e",
-            "x-rapidapi-host": "movies-tv-shows-database.p.rapidapi.com",
-            "Type": "get-movie-details"
+            "x-rapidapi-host": "movies-tv-shows-database.p.rapidapi.com"
         ]
+        additionalHeaders().forEach { key, value in
+            defaultHeaders[key] = value
+        }
+        return defaultHeaders
     }
+    
+    func additionalHeaders() -> [String: String] {
+        [:]
+    }
+    
     var query: [String: String] { [:] }
 }
 

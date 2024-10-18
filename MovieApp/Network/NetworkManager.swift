@@ -7,6 +7,7 @@
 
 import Foundation
 import Combine
+import SwiftyJSON
 
 // MARK: - NetworkError
 enum NetworkError: Error {
@@ -33,26 +34,12 @@ class NetworkManager: NetworkManagerProtocol {
         
         var request = URLRequest(url: url)
         request.httpMethod = service.method.rawValue
-        
-        service.headers.forEach { key, value in
-            request.addValue(value, forHTTPHeaderField: key)
-        }
-        
-        switch service.body {
-        case .encodable(let encodable):
-            do {
-                request.httpBody = try JSONEncoder().encode(encodable)
-            } catch {
-                return Fail(error: NetworkError.requestFailed).eraseToAnyPublisher()
-            }
-        case .empty:
-            request.httpBody = nil
-        }
+        request.allHTTPHeaderFields = service.headers
+        print(service.headers)
         
         return Future<T.ResponseType, NetworkError> { promise in
             URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
-                    print("Error: \(error)")
                     promise(.failure(.requestFailed))
                     return
                 }
@@ -63,6 +50,9 @@ class NetworkManager: NetworkManagerProtocol {
                     return
                 }
                 
+                let json = JSON(data)
+                print(json, "JSON RESPONSE BODY")
+                
                 do {
                     let decodedData = try JSONDecoder().decode(T.ResponseType.self, from: data)
                     promise(.success(decodedData))
@@ -72,5 +62,11 @@ class NetworkManager: NetworkManagerProtocol {
             }.resume()
         }
         .eraseToAnyPublisher()
+    }
+}
+// MARK: - Private
+private extension NetworkManager {
+    func buildQueryParamsString(using queryParams: [String: CustomStringConvertible]) -> String {
+        queryParams.map { $0.key + "=" + $0.value.description }.joined(separator: "&")
     }
 }

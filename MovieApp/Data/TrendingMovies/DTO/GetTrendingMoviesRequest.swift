@@ -21,4 +21,8 @@ struct GetTrendingMoviesRequest: Request {
     init(requestDTO: TrendingMoviesRequestDTO) {
         self.query = ["page": "\(requestDTO.page)"]
     }
+    
+    func additionalHeaders() -> [String: String] {
+        return ["Type": "get-trending-movies"]
+    }
 }

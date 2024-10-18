@@ -12,6 +12,7 @@ import Factory
 // MARK: - TrendingMoviesViewModelInput
 protocol TrendingMoviesViewModelInput {
     func getTrendingMovies()
+    func getMoviesByTitle(_ title: String)
     // func loadMoreTrendingMovies()
 }
 
@@ -30,6 +31,9 @@ final class DefaultTrendingMoviesViewModel: TrendingMoviesViewModel {
     @LazyInjected(\.trendingMoviesContainer.trendingMoviesUseCase)
     var trendingMoviesUseCase: TrendingMoviesUseCase
     
+    @LazyInjected(\.moviesByTitleContainer.moviesByTitleUseCase)
+    var moviesByTitleUseCase: MoviesByTitleUseCase
+    
     // MARK: Publisher
     var moviesPublisher: AnyPublisher<[BasicMovie], Never> {
         moviesSubject.eraseToAnyPublisher()
@@ -38,7 +42,7 @@ final class DefaultTrendingMoviesViewModel: TrendingMoviesViewModel {
     private let moviesSubject = PassthroughSubject<[BasicMovie], Never>()
     
     // MARK: Properties
-    private var pagesCounter: Int = 1
+    private var pagesCounter: Int = 2
     private(set) var subscriptions: Set<AnyCancellable> = []
 }
 
@@ -51,8 +55,25 @@ extension DefaultTrendingMoviesViewModel {
             .sink { result in
                 switch result {
                 case .finished: break
-                case .failure:
-                    print("failure")
+                case .failure(let error):
+                    print("Error: \(error)")
+                }
+            } receiveValue: { [weak self] response in
+                guard let self else { return }
+                self.moviesSubject.send(response.movies)
+            }
+            .store(in: &subscriptions)
+    }
+    
+    func getMoviesByTitle(_ title: String) {
+        moviesByTitleUseCase
+            .execute(request: .init(title: title))
+            .receive(on: DispatchQueue.main)
+            .sink { result in
+                switch result {
+                case .finished: break
+                case .failure(let error):
+                    print("Error: \(error)")
                 }
             } receiveValue: { [weak self] response in
                 guard let self else { return }

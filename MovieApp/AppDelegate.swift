@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +15,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+
+//        let headers = [
+//            "x-rapidapi-key": "88a659b4fbmsh0114af9ee0c46d6p1dc0dajsn251a2653177e",
+//            "x-rapidapi-host": "movies-tv-shows-database.p.rapidapi.com",
+//            "Type": "get-movies-images-by-imdb"
+//        ]
+//
+//        let request = NSMutableURLRequest(url: NSURL(string: "https://movies-tv-shows-database.p.rapidapi.com/?movieid=tt1375666")! as URL,
+//                                                cachePolicy: .useProtocolCachePolicy,
+//                                            timeoutInterval: 10.0)
+//        request.httpMethod = "GET"
+//        request.allHTTPHeaderFields = headers
+//
+//        let session = URLSession.shared
+//        let dataTask = session.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) -> Void in
+//            if (error != nil) {
+//                print(error as Any)
+//            } else {
+//                let httpResponse = response as? HTTPURLResponse
+//                let json = JSON(data)
+//                print(json)
+//            }
+//        })
+//
+//        dataTask.resume()
+        
         return true
     }
 
